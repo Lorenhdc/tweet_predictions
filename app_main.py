@@ -11,7 +11,7 @@ os.chdir(os.path.dirname(__file__))
 app = Flask(__name__)
 app.config['DEBUG'] = True
 
-model = pickle.load(open('data/output/finished_model.model','rb'))
+model = pickle.load(open('finished_model.model','rb'))
 
 @app.route('/', methods=['GET'])
 def home():
@@ -21,8 +21,8 @@ def home():
 @app.route('/api/v1/predict', methods=['GET'])
 def predict():
 
-    tweet = request.args.get('tweet', None)
-    tweet_serie = pd.Series(str(tweet))
+    tweet_serie = request.args.get('tweet', None)
+    tweet_serie = pd.Series(str(tweet_serie))
 
     if tweet_serie is None:
         return "Args empty, the data are not enough to predict"
