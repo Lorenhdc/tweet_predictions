@@ -22,14 +22,15 @@ def home():
 def predict():
 
     tweet_serie = request.args.get('tweet', None)
-    tweet_serie = pd.Series(str(tweet_serie))
+    if tweet_serie != None:
+        frase_predecir = "'"+tweet_serie+"'"
 
     if tweet_serie is None:
         return "Args empty, the data are not enough to predict"
     else:
-        prediction = model.predict(tweet_serie)
-    
-    return jsonify({'predictions': prediction})
+        prediction = model.predict([frase_predecir])
+
+        return str(prediction)
 
 
 
